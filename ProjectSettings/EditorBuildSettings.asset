@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MarioAdventure2D/Scenes/1-1.unity
+    path: Assets/MarioAdventure2D/Scenes/1-2.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/MarioAdventure2D/Scenes/1-2.unity
+    path: Assets/MarioAdventure2D/Scenes/1-1.unity
     guid: 9f8cc31c24a2c094d84435b22d141d09
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

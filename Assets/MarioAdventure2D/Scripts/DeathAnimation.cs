@@ -3,9 +3,15 @@ using UnityEngine;
 
 public class DeathAnimation : MonoBehaviour
 {
+    AudioManager audioManager;
+
     public SpriteRenderer spriteRenderer;
     public Sprite deadSprite;
 
+    private void Awake()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
     private void Reset()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -28,8 +34,12 @@ public class DeathAnimation : MonoBehaviour
         spriteRenderer.enabled = true;
         spriteRenderer.sortingOrder = 10;
 
-        if (deadSprite != null) {
+        if (deadSprite != null)
+        {
             spriteRenderer.sprite = deadSprite;
+            audioManager.musicSource.Stop();
+            audioManager.PlaySoundEffect(audioManager.GameOver);
+
         }
     }
 
@@ -37,19 +47,23 @@ public class DeathAnimation : MonoBehaviour
     {
         Collider2D[] colliders = GetComponents<Collider2D>();
 
-        for (int i = 0; i < colliders.Length; i++) {
+        for (int i = 0; i < colliders.Length; i++)
+        {
             colliders[i].enabled = false;
         }
 
-        if (TryGetComponent(out Rigidbody2D rigidbody)) {
+        if (TryGetComponent(out Rigidbody2D rigidbody))
+        {
             rigidbody.isKinematic = true;
         }
 
-        if (TryGetComponent(out PlayerMovement playerMovement)) {
+        if (TryGetComponent(out PlayerMovement playerMovement))
+        {
             playerMovement.enabled = false;
         }
 
-        if (TryGetComponent(out EntityMovement entityMovement)) {
+        if (TryGetComponent(out EntityMovement entityMovement))
+        {
             entityMovement.enabled = false;
         }
     }

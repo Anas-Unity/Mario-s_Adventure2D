@@ -3,6 +3,12 @@ using UnityEngine;
 
 public class BlockCoin : MonoBehaviour
 {
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
     private void Start()
     {
         GameManager.Instance.AddCoin();
@@ -12,6 +18,7 @@ public class BlockCoin : MonoBehaviour
 
     private IEnumerator Animate()
     {
+        audioManager.PlaySoundEffect(audioManager.Coin);
         Vector3 restingPosition = transform.localPosition;
         Vector3 animatedPosition = restingPosition + Vector3.up * 2f;
 

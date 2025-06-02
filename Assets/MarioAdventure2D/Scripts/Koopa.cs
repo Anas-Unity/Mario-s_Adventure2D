@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class Koopa : MonoBehaviour
 {
+    AudioManager audioManager;
+
     public Sprite shellSprite;
     public float shellSpeed = 12f;
 
     private bool shelled;
     private bool pushed;
 
+    private void Awake()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!shelled && collision.gameObject.CompareTag("Player") && collision.gameObject.TryGetComponent(out Player player))
@@ -48,6 +54,7 @@ public class Koopa : MonoBehaviour
 
     private void EnterShell()
     {
+        audioManager.PlaySoundEffect(audioManager.KoopaStomp);
         shelled = true;
 
         GetComponent<SpriteRenderer>().sprite = shellSprite;
@@ -57,6 +64,7 @@ public class Koopa : MonoBehaviour
 
     private void PushShell(Vector2 direction)
     {
+        audioManager.PlaySoundEffect(audioManager.KoopaKick);
         pushed = true;
 
         GetComponent<Rigidbody2D>().isKinematic = false;
@@ -71,16 +79,17 @@ public class Koopa : MonoBehaviour
 
     private void Hit()
     {
+        audioManager.PlaySoundEffect(audioManager.KoopaStomp);
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;
         Destroy(gameObject, 3f);
     }
 
-    private void OnBecameInvisible()
+    /*private void OnBecameInvisible()
     {
         if (pushed) {
             Destroy(gameObject);
         }
-    }
+    }*/
 
 }

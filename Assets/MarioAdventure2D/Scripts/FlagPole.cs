@@ -48,11 +48,17 @@ public class FlagPole : MonoBehaviour
     }*/
     #endregion
 
+    AudioManager audioManager;
+
     public Transform flag;
     public Transform poleBottom;
     public Transform castle;
     public float speed = 6f;
 
+    private void Awake()
+    {
+        audioManager = FindFirstObjectByType<AudioManager>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && other.TryGetComponent(out Player player))
@@ -67,6 +73,8 @@ public class FlagPole : MonoBehaviour
 
     private IEnumerator LevelCompleteSequence(Player player)
     {
+        audioManager.PlaySoundEffect(audioManager.FlagPole);
+
         player.movement.enabled = false; // Disable player movement
 
         // Player animation sequence

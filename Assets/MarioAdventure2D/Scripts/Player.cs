@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    AudioManager audioManager;
     public CapsuleCollider2D capsuleCollider { get; private set; }
     public PlayerMovement movement { get; private set; }
     public DeathAnimation deathAnimation { get; private set; }
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         movement = GetComponent<PlayerMovement>();
         deathAnimation = GetComponent<DeathAnimation>();
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
 
     public void Grow()
     {
+        audioManager.PlaySoundEffect(audioManager.PowerUp);
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
@@ -58,6 +61,8 @@ public class Player : MonoBehaviour
 
     public void Shrink()
     {
+        audioManager.PlaySoundEffect(audioManager.MarioShrink);
+
         smallRenderer.enabled = true;
         bigRenderer.enabled = false;
         activeRenderer = smallRenderer;
