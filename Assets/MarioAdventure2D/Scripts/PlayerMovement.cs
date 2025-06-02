@@ -55,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
         if (grounded) {
             GroundedMovement();
         }
-
         ApplyGravity();
     }
 
@@ -134,6 +133,11 @@ public class PlayerMovement : MonoBehaviour
             if (transform.DotTest(collision.transform, Vector2.up)) {
                 velocity.y = 0f;
             }
+        }
+        if(collision.gameObject.tag == "Audio")
+        {
+            Debug.Log("Collided with skyBarrier");
+            velocity.y = 0f;
         }
     }
 

@@ -1,6 +1,8 @@
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -10,18 +12,20 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     // Game state variables
+    public GameObject score;
     public int world { get; private set; } = 1;
     public int stage { get; private set; } = 1;
     public int lives { get; private set; } = 3;
-    public int coins { get; private set; } = 0;
+    public int coins { get; private set; } = 0; 
 
+    public Text coinCounterText;
     private void Awake()
     {
         // Implement the singleton pattern
         if (Instance != null)
         {
             // If another instance already exists, destroy this one
-            Debug.LogWarning("GameManager: Duplicate instance found, destroying this GameObject.");
+            Debug.LogWarning("GameManager: Duplicate instance found, destroying this GameObject...");
             DestroyImmediate(gameObject);
         }
         else
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         Debug.Log("GameManager: Target frame rate set to 60.");
         NewGame(); // Start a new game when the GameManager initializes
+        
     }
 
     // Resets game state and loads the first level
@@ -144,13 +149,18 @@ public class GameManager : MonoBehaviour
     {
         coins++;
         Debug.Log($"GameManager: Coin collected. Total coins: {coins}.");
-
         if (coins == 100)
         {
             coins = 0;
             AddLife(); // Add a life if 100 coins are collected
             Debug.Log("GameManager: 100 coins collected! Coins reset, life added.");
         }
+        if (score == null)
+        {
+            score = GameObject.Find("CoinsCounter");
+            coinCounterText = score.GetComponent<Text>();
+        }
+        coinCounterText.text = coins.ToString();
     }
 
     // Adds a life
