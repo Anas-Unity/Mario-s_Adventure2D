@@ -48,14 +48,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        HorizontalMovement();
+        if (GameManager.Instance != null && GameManager.Instance.IsGameActive)
+        {
+            HorizontalMovement();
 
-        grounded = rb.Raycast(Vector2.down);
+            grounded = rb.Raycast(Vector2.down);
 
-        if (grounded) {
-            GroundedMovement();
+            if (grounded)
+            {
+                GroundedMovement();
+            }
+            ApplyGravity();
         }
-        ApplyGravity();
+        
     }
 
     private void FixedUpdate()

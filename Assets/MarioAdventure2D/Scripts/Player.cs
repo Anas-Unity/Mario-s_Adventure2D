@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         bigRenderer.enabled = false;
         deathAnimation.enabled = true;
 
-        GameManager.Instance.ResetLevel(3f);
+        GameManager.Instance.PlayerFailedLevelAttempt();
     }
 
     public void Grow()

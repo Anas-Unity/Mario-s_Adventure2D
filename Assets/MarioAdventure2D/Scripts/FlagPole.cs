@@ -73,6 +73,7 @@ public class FlagPole : MonoBehaviour
 
     private IEnumerator LevelCompleteSequence(Player player)
     {
+        audioManager.musicSource.Stop();
         audioManager.PlaySoundEffect(audioManager.FlagPole);
 
         player.movement.enabled = false; // Disable player movement
@@ -90,6 +91,7 @@ public class FlagPole : MonoBehaviour
         // *** THIS IS THE CRUCIAL CHANGE ***
         // Instead of hardcoding 1-1, tell the GameManager to advance to the next level
         Debug.Log("FlagPole: Level completed! Requesting next level from GameManager.");
+        //GameManager.Instance.NextLevel();
         GameManager.Instance.NextLevel();
     }
 

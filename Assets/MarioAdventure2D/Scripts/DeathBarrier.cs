@@ -18,7 +18,7 @@ public class DeathBarrier : MonoBehaviour
             
 
             other.gameObject.SetActive(false);
-            GameManager.Instance.ResetLevel(3f);
+            GameManager.Instance.PlayerFailedLevelAttempt();
         }
         else
         {
